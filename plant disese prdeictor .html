@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Plant Disease Prediction</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@latest"></script>
+</head>
+<body>
+    <div class="container">
+        <h1>🌱 Plant Disease Prediction</h1>
+        <input type="file" id="imageUpload" accept="image/*">
+        <button onclick="predictDisease()">Predict Disease</button>
+        <div id="imagePreview"></div>
+        <h2 id="result">Result: </h2>
+        <p id="tips"></p>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>

@@ -1,0 +1,49 @@
+let model;
+const labels = ["Healthy", "Powdery Mildew", "Leaf Rust", "Bacterial Blight"];
+
+async function loadModel() {
+    model = await tf.loadLayersModel("model/model.json");
+    console.log("Model Loaded");
+}
+
+loadModel();
+
+document.getElementById("imageUpload").addEventListener("change", function (event) {
+    const file = event.target.files[0];
+    const reader = new FileReader();
+    reader.onload = function (e) {
+        const img = document.createElement("img");
+        img.src = e.target.result;
+        document.getElementById("imagePreview").innerHTML = "";
+        document.getElementById("imagePreview").appendChild(img);
+    };
+    reader.readAsDataURL(file);
+});
+
+async function predictDisease() {
+    const imgElement = document.querySelector("#imagePreview img");
+    if (!imgElement) {
+        alert("Please upload an image first!");
+        return;
+    }
+
+    let tensor = tf.browser.fromPixels(imgElement)
+        .resizeNearestNeighbor([224, 224])
+        .toFloat()
+        .expandDims();
+
+    const prediction = await model.predict(tensor).data();
+    const highestIndex = prediction.indexOf(Math.max(...prediction));
+    const disease = labels[highestIndex];
+    
+    document.getElementById("result").innerText = `Result: ${disease}`;
+    
+    const tips = {
+        "Healthy": "Your plant looks healthy. Keep providing proper care.",
+        "Powdery Mildew": "Use sulfur-based fungicides and remove affected leaves.",
+        "Leaf Rust": "Apply fungicides and avoid overhead watering.",
+        "Bacterial Blight": "Use copper-based bactericides and improve air circulation."
+    };
+
+    document.getElementById("tips").innerText = tips[disease];
+}
