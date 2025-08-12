@@ -4,18 +4,22 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Plant Disease Prediction</title>
-    <link rel="stylesheet" href="style.css">
-    <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@latest"></script>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
 <body>
-    <div class="container">
-        <h1>🌱 Plant Disease Prediction</h1>
-        <input type="file" id="imageUpload" accept="image/*">
-        <button onclick="predictDisease()">Predict Disease</button>
-        <div id="imagePreview"></div>
-        <h2 id="result">Result: </h2>
-        <p id="tips"></p>
-    </div>
-    <script src="script.js"></script>
+    <header>
+        <h1>🌱 Plant Disease Prediction System</h1>
+    </header>
+
+    <section>
+        <form id="uploadForm" enctype="multipart/form-data">
+            <label for="file">Upload Plant Leaf Image:</label>
+            <input type="file" id="file" name="file" accept="image/*" required>
+            <button type="submit" class="animated-btn">Predict</button>
+        </form>
+        <p id="result"></p>
+    </section>
+
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
 </body>
 </html>
