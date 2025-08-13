@@ -1,7 +1,25 @@
+// Named exports
+export function add(a, b) {
+    return a + b;
+}
+
+export function multiply(a, b) {
+    return a * b;
+}
+
+// Default export
+export default function greet(name) {
+    console.log(`Hello, ${name}! Welcome to the Plant Prediction System.`);
+}
+import greet, { add, multiply } from "./mathUtils.js";
+
+// Greet user
 window.onload = () => {
+    greet("User");
     alert("Welcome to the Plant Disease Prediction System!");
 };
 
+// Handle form submit for plant prediction
 document.getElementById("uploadForm").addEventListener("submit", function(e) {
     e.preventDefault();
 
@@ -20,8 +38,30 @@ document.getElementById("uploadForm").addEventListener("submit", function(e) {
     })
     .then(response => response.json())
     .then(data => {
-        document.getElementById("result").innerText = "Prediction: " + data.prediction;
+        document.getElementById("result").textContent = "Prediction: " + data.prediction;
     })
     .catch(error => console.error("Error:", error));
 });
 
+// Create Card Button Logic
+document.getElementById("createCardBtn").addEventListener("click", () => {
+    let container = document.getElementById("cardContainer");
+
+    // Example of using add() function
+    let idNum = add(container.children.length, 1);
+
+    let card = document.createElement("div");
+    card.className = "card";
+    card.innerHTML = `
+        <h3>Card ${idNum}</h3>
+        <p>Sample Content - Multiply test: ${multiply(idNum, 2)}</p>
+        <button>Delete</button>
+    `;
+
+    // Delete card on click
+    card.querySelector("button").addEventListener("click", () => {
+        card.remove();
+    });
+
+    container.appendChild(card);
+});
