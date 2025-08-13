@@ -12,14 +12,21 @@
     </header>
 
     <section>
+        <!-- Upload Form -->
         <form id="uploadForm" enctype="multipart/form-data">
             <label for="file">Upload Plant Leaf Image:</label>
             <input type="file" id="file" name="file" accept="image/*" required>
             <button type="submit" class="animated-btn">Predict</button>
         </form>
         <p id="result"></p>
+
+        <!-- Card Creation Section -->
+        <button id="createCardBtn" class="animated-btn">Create Card</button>
+        <div id="cardContainer" class="card-container"></div>
     </section>
 
-    <script src="{{ url_for('static', filename='script.js') }}"></script>
+    <!-- Main JS file using ES6 Modules -->
+    <script type="module" src="{{ url_for('static', filename='main.js') }}"></script>
 </body>
 </html>
+
